@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+    {% block title %}
+    shop
+    {% endblock title %}
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css')}}">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div id="logo">
+                <a href="{{ url_for('index') }}">Детские игрушки</a>
+                <img src="/static/images/toy.jpg" alt="логотип">
+            </div>
+            <div>
+            <div class="line1">
+                    <div> Режим работы: с 9 до 22 </div>
+                    <div>  8-800-77-07-777 </div>
+                </div>
+
+            </div>
+            <div class="line2">
+                <div>
+                    <form action="{{url_for('search')}}" method="GET">
+                        <input name="q" value="{{request.args.get('q', '')}}" type="search">
+                        <button type="search"> Поиск </button>
+                    </form>
+                </div>
+                <div>
+                    <a href="{{ url_for('basket.get_cart') }}">
+                        корзина
+                    </a>
+                </div>
+                <div>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}">
+                            Выйти
+                        </a>
+                        {{current_user.username}}
+                        {{current_user.email}}
+                    {% else %}
+                        <a href="{{ url_for('login') }}">
+                            Войти
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+        <nav> <!--  после нажатие на главный раздел меню переходим на страниу с меню
+                после нажатия на конкретный пункт главного раздела переходим во вкладку с товаром -->
+        {% block nav %}
+            {% include 'nav.html' %}
+        {% endblock nav %}
+        </nav>
+
+        <div class="content">
+            {% block content %}
+
+
+            {% endblock content %}
+
+        </div>
+
+
+    <footer>
+        <div>
+            подвал с вопросами вакансиями адресами
+        </div>
+    </footer>
+
+
+</body>
+</html>

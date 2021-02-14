@@ -1,0 +1,35 @@
+<nav>
+    <ul class="pagination">
+        {% if pages.has_prev %}
+            <li >
+                <a href="?q={{q}}&page={{pages.prev_num}}">&LT предыдущий</a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <span>&LT нет</span>
+            </li>
+        {% endif %}
+
+        {% for page in pages.iter_pages() %}
+            {% if page == pages.page %}
+                <li class="page-item active">
+                    <a href="?{{st}}&q={{q}}&page={{page}}">активная {{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a href="?{{st}}&q={{q}}&page={{page}}">неактивная{{ page }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pages.has_next %}
+            <li>
+                <a href="?q={{q}}&page={{pages.next_num}}">&GT следующий</a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <span>&GT нет</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

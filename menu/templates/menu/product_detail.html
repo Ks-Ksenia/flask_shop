@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+        {{product.submenu}}
+{% endblock title%}
+
+{% block content %}
+        {{category}} {{product.submenu}} {{product.product_name}} {{product.article}}
+        <br>
+        <img src="/static/images/{{product.img}}">
+        <p>{{product.price}}</p>
+        <p>{{product.availability}}</p>
+
+        <a href="{{ url_for('basket.add_product', url=product.url) }}">Купить</a>
+        <br>
+        <a href="">Описание</a> <a href="">Характеристики</a>
+
+        <p>текст с описанием товара</p>
+        <p>текст с характеристиками товара</p>
+
+{% endblock content %}

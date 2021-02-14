@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{collection}}
+
+{% endblock %}
+
+
+{% block nav %}
+<form action="" method="GET">
+
+
+    {% for i in form if i.name not in ['csrf_token', 'submit'] %}
+        {{i.label()}}
+        {{i()}}
+<br>
+    {% endfor %}
+    {{form.submit()}}
+
+    <a href="{{ url_for('.product_list', url=url ) }}">Сбросить фильтры</a>
+
+    </form>
+{% endblock nav %}
+
+{% block content %}
+    <div class="container_menu">
+        {{category}} {{ collection }}
+        <br>
+        <br>
+        <br>
+
+        {% if products.all() %}
+            {% for product in pages.items %}
+                <div>
+                    <a href=""><img src="/static/images/{{product.img}}"></a>
+                    <a href="{{ url_for('.product_detail', url=product.url) }}">
+                        <p>{{category}} {{product.submenu}} {{product.product_name}} {{product.article}}</p>
+                    </a>
+                    <p>{{product.price}}</p>
+                    <a href="{{ url_for('basket.add_product', url=product.url) }}">Купить</a>
+                </div>
+            <br>
+            {% endfor %}
+
+        {% else %}
+            результатов не найдено
+        {% endif %}
+
+        {% include 'pagination.html' %}
+
+    </div>
+
+{% endblock %}

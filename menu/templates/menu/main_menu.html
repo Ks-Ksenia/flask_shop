@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{title}}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container_menu">
+        {% for point_menu in menu %}
+            <div>
+                {{point_menu.product}}
+                <a href= "{{ url_for('.submenu', url=point_menu.url ) }}"><p>{{ point_menu.title }} </p></a>
+                <a href=""><img src="/static/images/{{point_menu.img}}"></a>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

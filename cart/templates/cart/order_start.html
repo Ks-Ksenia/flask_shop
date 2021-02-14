@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container_start_order">
+    <div id="start_order_text">
+        <h2>Оформление заказа</h2>
+    </div>
+
+    <div class="order_form">
+        <form action="" method="POST">
+            {{ form.csrf_token }}
+
+            {% for field in form if field.name !='csrf_token' %}
+                {{field.label()}}
+                {{field}}
+
+                {% if field.errors %}
+                    {% for e in field.errors %}
+                        {{e}}
+                    {% endfor %}
+                {% endif %}
+
+            <br>
+            {% endfor %}
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}

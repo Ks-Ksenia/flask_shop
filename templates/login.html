@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{title}}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container_login">
+        <div id="login_text">
+           <h2>Войти или зарегистрироваться</h2>
+        </div>
+        {% for message in get_flashed_messages(with_categories=False) %}
+            <p>{{message}}</p>
+        {% endfor %}
+
+        <div class="login_form">
+            <form action="" method="post">
+                {{ form.csrf_token }}
+
+                {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+
+                    {{field.label()}}
+                    {{field()}}
+
+                    {% if field.errors %}
+                        {% for e in field.errors %}
+                            {{e}}
+                        {% endfor %}
+                    {% endif %}
+                <br>
+                <br>
+                {% endfor %}
+
+                {{form.submit()}}
+
+
+            </form>
+            <div>
+                <form action="{{ url_for('registration') }}" method="get">
+                    <button type="submit"> Зарегистрироваться </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock content %}

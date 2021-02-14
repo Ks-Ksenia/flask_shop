@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container_cart">
+
+        <div class="cart_text">
+            <p> {% if cart.cart_products.count() %}Товары в корзинe
+                {% else %} Ваша корзина пуста {% endif %}
+            </p>
+        </div>
+
+        <div class="cart_product">
+        {% if cart.cart_products.count() %}
+            {% for item in cart.cart_products %}
+
+                <div class="item_cart_product">
+
+                    <div id="cart_img">
+                        <a href="">
+                            <img src="">
+                        </a>
+                    </div>
+
+                    <div class="cart_line2">
+                        <div id="cart_model">
+
+                            <a href="">
+                                {{item.cartproduct.product_name}}
+                            </a>
+                        </div>
+
+
+                        <div id="form_quantity">
+                            <form action="{{ url_for('.change_quantity', url=item.cartproduct.url) }}"
+                                method="POST">
+
+                            <input type="submit" name="add_quantity" value="+">
+                            <input type="number" name="quantity" min="1" value="{{item.quantity}}">
+                            <input type="submit" name="remove_quantity" value="-">
+                            </form>
+                        </div>
+
+                        <div id="product_del">
+                            <form action="{{ url_for('.del_product', url=item.cartproduct.url) }}"
+                                method="get">
+                                <button type="submit">Удалить из корзины</button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="cart_price">
+                        <div id="product_price">
+                            <p>Цена за шт.</p>
+                            <span>{{item.product_price}} ₽</span>
+                        </div>
+
+                        <div id="total_price">
+                            <p>Общая цена</p>
+                            <span>{{item.final_price}} ₽</span>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+<br>
+<br>
+<br>
+<br>
+<br>
+                <div class="cart_order">
+                    <div id="cart_result">
+                        <p>Итого: <span>{{cart.final_price}}</span></p>
+
+                    </div>
+                    <div id="start_order">
+                        <form action="{{ url_for('.order') }}" method="get">
+                            <button>Оформить заказ</button>
+                        </form>
+                    </div>
+
+                </div>
+
+        {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}
